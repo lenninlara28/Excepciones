@@ -7,6 +7,13 @@
 package interfaz;
 
 import clases.Cuenta;
+import clases.Helper;
+import excepciones.NoCeroException;
+import excepciones.NoFondosException;
+import excepciones.NoNegativoException;
+import java.awt.Button;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +28,8 @@ public class Principal extends javax.swing.JFrame {
     Cuenta c;
     public Principal() {
         initComponents();
+        
+        
     }
 
     /**
@@ -98,19 +107,41 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCrearCuentaActionPerformed
-       c = new Cuenta(12345,1142478);
+        try {
+            c = new Cuenta(12345,1142478);
+        } catch (NoNegativoException | NoCeroException ex) {
+          Helper.mensaje(this, ex.getMessage(),2);
+        }
     }//GEN-LAST:event_cmdCrearCuentaActionPerformed
 
     private void cmdIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdIngresarActionPerformed
-    c.ingresar(20000);
+        try {
+            c.ingresar(20000);
+        } catch (NoNegativoException ex) {
+            Helper.mensaje(this, ex.getMessage(),2);
+        } catch (NoCeroException ex) {
+           Helper.mensaje(this, ex.getMessage(),2);
+        }
     }//GEN-LAST:event_cmdIngresarActionPerformed
 
     private void cmdRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRetirarActionPerformed
-       c.retirar(10000);
+        try {
+            c.retirar(10000);
+        } catch (NoNegativoException ex) {
+            Helper.mensaje(this, ex.getMessage(),2);
+        } catch (NoCeroException ex) {
+          Helper.mensaje(this, ex.getMessage(),2);
+        } catch (NoFondosException ex) {
+          Helper.mensaje(this, ex.getMessage(),3);
+        }
     }//GEN-LAST:event_cmdRetirarActionPerformed
 
     private void cmdActualizarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdActualizarSaldoActionPerformed
-       c.actulizarSaldo(2.5);
+        try {
+            c.actulizarSaldo(2.5);
+        } catch (NoNegativoException ex) {
+           Helper.mensaje(this, ex.getMessage(),2);
+        }
     }//GEN-LAST:event_cmdActualizarSaldoActionPerformed
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
